@@ -10,27 +10,41 @@
         <title>ECommerceExercice</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="./index.css">
     </head>
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
         <h1>Ecommerce Tools</h1>
-        <div class="addProduct">
+        <div class="container">
+          <div class="addProduct">
             <h3>Add Product</h3>
             <form enctype="multipart/form-data" method="post" name="formAddPorduct" id="formAddPorduct">
-                <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
-                <label for="name">Name: </label><input name="name" id="name" type="text" required><br>
-                <label for="price">Price: </label><input name="price" id="price" type="number" value="0"><br>
-                <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
-                <button type="submit" id="submit-product">Add</button>
+              <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
+              <label for="name">Name: </label><input name="name" id="name" type="text" required><br>
+              <label for="price">Price: </label><input name="price" id="price" type="number" value="0"><br>
+              <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
+              <button type="submit" id="submit-product">Add</button>
             </form>
+          </div>
+          <div class="ProductList">
+            <h3>Product List:</h3>
+            <table>
+              <thead>
+                <th><h4>ID</h4></th>
+                <th><h4>Name</h4></th>
+                <th><h4>Price</h4></th>
+                <th><h4>Color</h4></th>
+                <th><h4>Quantity</h4></th>
+                <th><h4>Add Stock</h4></th>
+              </thead>
+              <tbody id="ProductList">
+      
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div id="ProductList">
-        </div>
-        
+      
+        <script src="./productList.js" async="false"></script>
         <script src="./fetch/addProduct.js"></script>
-        <script src="./productList.js" ></script>
-    </body>
+        <script src="./fetch/addStock.js"></script>
+      </body>
 </html>

@@ -2,7 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
-const {getAllProducts, getProductById, addProduct, deleteProduct} =  require('./db/querie');
+const {
+  getAllProducts, 
+  getProductById, 
+  addProduct, 
+  deleteProduct, 
+  addStock, 
+  addProductDetail, 
+  getProductDetailByProduct
+} =  require('./db/querie');
 const {PORT} = require('./config');
 const port = PORT;
 
@@ -21,8 +29,11 @@ app.get('/', (req, res) => {
 // Product routes
 app.get('/Products', getAllProducts);
 app.get('/Products/:id', getProductById);
-app.post('/Products/AddProduct', addProduct);
+app.post('/Products/addProduct', addProduct);
 app.delete('/Products/:id/deleteProduct', deleteProduct);
+app.put('/Products/:id/addStock', addStock);
+app.post('/Products/:id/addProductDetail', addProductDetail);
+app.get('/Products/:id/getProductDetailByProduct', getProductDetailByProduct)
 
 app.listen(port, ()=>{
     console.log(`App is listening on port: ${port}`)

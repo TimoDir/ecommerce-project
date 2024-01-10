@@ -8,7 +8,7 @@ submitButtonProduct.addEventListener('click', async (e) => {
   dataFormAddProduct.forEach((value, key) => data[key] = value );
 
   try{
-    const response = await fetch(`http://localhost:3000/Products/AddProduct`, {
+    const response = await fetch(`http://localhost:3000/Products/addProduct`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

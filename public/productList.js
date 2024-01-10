@@ -9,20 +9,18 @@ const getProducts = async () =>{
             products.forEach(product =>{
                 Products.push(product);
                 // creation of a list 
-                const productContainer = document.createElement('div');
+                const productContainer = document.createElement('tr');
                 productContainer.setAttribute("id", `${product.id}${product.name}`);
                 productContainer.innerHTML =`
-                <h4>Category: ${product.category}</h4>
-                <ul>
-                    <li>ID: ${product.id}</li>
-                    <li>Name: ${product.name}</li>
-                    <li>Price: ${product.price}</li>
-                    <li>Color: ${product.color}</li>
-                    <li>Quantity: ${product.qty}</li>
-                </ul>
-                <button id="addStock${product.id}">Add stock:</button><input id="addStock${product.id}" type="number">
-                <button id="deleteProduct${product.id}">delete</button>
-                `;
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.price}</td>
+                <td>${product.color}</td>
+                <td>${product.qty}</td>
+                <td>
+                    <button id="addStock${product.id}">Add stock:</button><input id="InputStock${product.id}" type="number">
+                    <button id="deleteProduct${product.id}">delete</button>
+                </td>`;
                 productList.appendChild(productContainer);
             });
         });
@@ -34,5 +32,5 @@ const getProducts = async () =>{
 getProducts();
 
 module.exports = {
-    Products,
+    products: Products,
 }

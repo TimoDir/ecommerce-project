@@ -39,7 +39,7 @@ const addProduct = (request, response) =>{
             if (error) {
                 throw error
             };
-            response.status(201).send(`User added with ID: ${results.rows[0].id}`);
+            response.status(201).send(`Product added with ID: ${results.rows[0].id}`);
     })
 };
 
@@ -49,13 +49,50 @@ const deleteProduct = (request, response) =>{
         if (error) {
           throw error
         }
-        response.status(200).send(`User deleted with ID: ${id}`)
+        response.status(200).send(`Product deleted with ID: ${id}`)
       });
 };
+
+const addStock = (request, response) =>{
+    const id = parseInt(request.params.id);
+    const { qty } = request.body
+    pool.query('UPDATE products SET qty = qty + $1 WHERE id = $2', [qty, id], (error, results) => {
+        if (error) {
+          throw error
+        }
+        response.status(200).send(`Product quantity ${qty} added ID: ${id}`)
+      });
+};
+
+const addProductDetail = (request, response) =>{
+    const id = parseInt(request.params.id);
+    pool.query('INSERT INTO product_details (id_product) VALUES ($1) RETURNING *', 
+        [id], 
+        (error, results) => {
+            if (error) {
+                throw error
+            };
+            response.status(201).send(`Product_details for Product ID:${id} \nAdded with ID: ${results.rows[0].id_item}`);
+    })
+};
+
+const getProductDetailByProduct = (request, response) =>{
+    const id = parseInt(request.params.id);
+    pool.query(`SELECT * FROM product_details WHERE id_product =${id}`, (error, results) => {
+    if(error){
+        throw error;
+    };
+    response.status(200).json(results.rows)
+});
+};
+
 
 module.exports = {
     getAllProducts,
     getProductById,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    addStock,
+    addProductDetail,
+    getProductDetailByProduct
 };
