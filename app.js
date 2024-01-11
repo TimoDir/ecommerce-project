@@ -9,7 +9,10 @@ const {
   deleteProduct, 
   addStock, 
   addProductDetail, 
-  getProductDetailByProduct
+  getProductDetailByProduct,
+  deleteAllProductDetailByProduct,
+  getAllProductDetail,
+  deleteProductDetail
 } =  require('./db/querie');
 const {PORT} = require('./config');
 const port = PORT;
@@ -26,14 +29,19 @@ app.get('/', (req, res) => {
     res.send('Express app is working!')
 });
 
-// Product routes
+// Products routes
 app.get('/Products', getAllProducts);
 app.get('/Products/:id', getProductById);
 app.post('/Products/addProduct', addProduct);
 app.delete('/Products/:id/deleteProduct', deleteProduct);
 app.put('/Products/:id/addStock', addStock);
+
+//Product_details route
+
+app.get('/ProductDetails/getAll', getAllProductDetail);
 app.post('/Products/:id/addProductDetail', addProductDetail);
 app.get('/Products/:id/getProductDetailByProduct', getProductDetailByProduct)
+app.delete('/Products/:id/deleteAllProductDetailByProduct', deleteAllProductDetailByProduct)
 
 app.listen(port, ()=>{
     console.log(`App is listening on port: ${port}`)

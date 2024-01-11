@@ -13,38 +13,51 @@
         <link rel="stylesheet" href="./index.css">
     </head>
     <body>
-        <h1>Ecommerce Tools</h1>
-        <div class="container">
+      <h1>Ecommerce Tools</h1>
+      <div class="container">
           <div class="addProduct">
-            <h3>Add Product</h3>
-            <form enctype="multipart/form-data" method="post" name="formAddPorduct" id="formAddPorduct">
-              <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
-              <label for="name">Name: </label><input name="name" id="name" type="text" required><br>
-              <label for="price">Price: </label><input name="price" id="price" type="number" value="0"><br>
-              <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
-              <button type="submit" id="submit-product">Add</button>
-            </form>
+              <h3>Add Product</h3>
+              <form enctype="multipart/form-data" method="post" name="formAddPorduct" id="formAddPorduct">
+                  <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
+                  <label for="name">Name: </label><input name="name" id="name" type="text" required><br>
+                  <label for="price">Price: </label><input name="price" id="price" type="number" value="0"><br>
+                  <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
+                  <button type="submit" id="submit-product">Add</button>
+              </form>
+          </div>
+          <div class="ProductDetailList">
+              <h3>Product Details:</h3>
+              <table>
+                  <thead>
+                      <th><h4>ID_Product</h4></th>
+                      <th><h4>Availability</h4></th>
+                      <th><h4>ID_Item</h4></th>
+                      <th><h4>Delete</h4></th>
+                  </thead>
+                  <tbody id="ProductDetailList">
+                      <!-- Your table data goes here -->
+                  </tbody>
+              </table>
           </div>
           <div class="ProductList">
-            <h3>Product List:</h3>
-            <table>
-              <thead>
-                <th><h4>ID</h4></th>
-                <th><h4>Name</h4></th>
-                <th><h4>Price</h4></th>
-                <th><h4>Color</h4></th>
-                <th><h4>Quantity</h4></th>
-                <th><h4>Add Stock</h4></th>
-              </thead>
-              <tbody id="ProductList">
-      
-              </tbody>
-            </table>
+              <h3>Product List:</h3>
+              <table>
+                  <thead>
+                      <th><h4>ID</h4></th>
+                      <th><h4>Category</h4></th>
+                      <th><h4>Name</h4></th>
+                      <th><h4>Price</h4></th>
+                      <th><h4>Color</h4></th>
+                      <th><h4>Quantity</h4></th>
+                      <th><h4>Add Stock</h4></th>
+                  </thead>
+                  <tbody id="ProductList">
+                      <!-- Your table data goes here -->
+                  </tbody>
+              </table>
           </div>
-        </div>
-      
-        <script src="./productList.js" async="false"></script>
-        <script src="./fetch/addProduct.js"></script>
-        <script src="./fetch/addStock.js"></script>
-      </body>
+      </div>
+  
+      <script src="../dist/bundle.js" async defer></script>
+  </body>
 </html>

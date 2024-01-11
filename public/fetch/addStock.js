@@ -1,34 +1,33 @@
-const products = require("../productList");
-
-products.forEach(product => {
-    const addStockButton = document.getElementById(`addStock${product.id}`);
-    addStockButton.addEventListener('click', async()=>{
-        const qtyToAdd = document.getElementById(`InputStock${product.id}`).value;
-        if (qtyToAdd < 1) {
-            return;
-        };
-        try{
+export const addStock = (products) =>{
+    products.forEach(product => {
+        const addStockButton = document.getElementById(`addStock${product.id}`);
+        addStockButton.addEventListener('click', async()=>{
+            const qtyToAdd = document.getElementById(`InputStock${product.id}`).value;
             // Update the stock value name qty
-            const responseAddStock = await fetch(`http://localhost:3000/Products/addStock`, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: {qty: qtyToAdd }
-            });
-            const resultAddStock = await responseAddStock.json();
-            console.log(`Sucess: ${resultAddStock}`);
+            try{
+                await fetch(`http://localhost:3000/Products/${product.id}/addStock`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({qty: qtyToAdd })
+                });
+                console.log(`${qty} quantity added at product ID: ${product.id}`);
+            }catch{
+                console.log("Error to the add Stock route");
+            };
+
             // Create a product_detail * the quantity add previously
             for (let i = 0; i < qtyToAdd; i++) {
-                const responseCreateDetail = await fetch(`http://localhost:3000/Products/${product.id}/:id/addProductDetail`, {
-                    method: 'POST' 
-                });
-                const resultCreateDetail = await responseCreateDetail.json();
-                console.log(`Sucess: ${resultCreateDetail}`);
+                try{
+                    await fetch(`http://localhost:3000/Products/${product.id}/addProductDetail`, {
+                        method: 'POST' 
+                    });
+                    console.log(`Product_details ${i+1} added for Product ID:${product.id}`);
+                }catch{
+                    console.log("Error to the add Product detail");
+                };
             };
-        }catch{
-            console.log("Error");
-        };
+        });
     });
-});
-
+};

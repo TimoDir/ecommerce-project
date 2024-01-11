@@ -60,8 +60,19 @@ const addStock = (request, response) =>{
         if (error) {
           throw error
         }
-        response.status(200).send(`Product quantity ${qty} added ID: ${id}`)
+        response.status(200).send(`${qty} quantity added at product ID: ${id}`)
       });
+};
+
+// *** product detail *** //
+
+const getAllProductDetail = (request, response) =>{
+    pool.query('SELECT * FROM product_details ORDER BY id_product ASC', (error, results) => {
+        if(error){
+            throw error;
+        };
+        response.status(200).json(results.rows)
+    });
 };
 
 const addProductDetail = (request, response) =>{
@@ -73,17 +84,41 @@ const addProductDetail = (request, response) =>{
                 throw error
             };
             response.status(201).send(`Product_details for Product ID:${id} \nAdded with ID: ${results.rows[0].id_item}`);
-    })
+    });
 };
 
 const getProductDetailByProduct = (request, response) =>{
     const id = parseInt(request.params.id);
     pool.query(`SELECT * FROM product_details WHERE id_product =${id}`, (error, results) => {
-    if(error){
-        throw error;
-    };
-    response.status(200).json(results.rows)
-});
+        if(error){
+            throw error;
+        };
+        response.status(200).json(results.rows)
+    });
+};
+
+const deleteAllProductDetailByProduct = (request, response) =>{
+    const id = parseInt(request.params.id);
+    pool.query('DELETE FROM product_details WHERE id_product = ($1)', 
+        [id], 
+        (error, results) => {
+            if (error) {
+                throw error
+            };
+            response.status(201).send(`all product_details for Product ID:${id} deleted`);
+    });
+};
+
+const deleteProductDetail = (request, response) =>{
+    const id = parseInt(request.params.id);
+    pool.query('DELETE FROM product_details WHERE id_item = ($1)', 
+        [id], 
+        (error, results) => {
+            if (error) {
+                throw error
+            };
+            response.status(201).send(`product_details for Product ID:${id} deleted id_item: ${results.rows[0].id_item}`);
+    });
 };
 
 
@@ -94,5 +129,8 @@ module.exports = {
     deleteProduct,
     addStock,
     addProductDetail,
-    getProductDetailByProduct
+    getProductDetailByProduct,
+    deleteAllProductDetailByProduct,
+    getAllProductDetail,
+    deleteProductDetail
 };
