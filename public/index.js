@@ -1,8 +1,10 @@
-import {addProduct}  from "./fetch/addProduct";
-import {productList} from "./fetch/productList";
-import {deleteProduct} from "./fetch/deleteProduct";
-import {addStock} from "./fetch/addStock";
-import { productDetailsList } from "./fetch/productDetailsList";
+import {
+    addProduct, 
+    productList, 
+    deleteProduct, 
+    addStock, 
+    productDetailsList
+}  from "./fetch/fetchProduct";
 
 addProduct();
 
@@ -18,7 +20,7 @@ try {
 };
 
 try {
-    fetch("http://localhost:3000/ProductDetails/getAll").then(response => response.json())
+    fetch("http://localhost:3000/ProductDetails").then(response => response.json())
     .then((productDetails)=>{
         productDetailsList(productDetails);
     });

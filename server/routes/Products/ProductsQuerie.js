@@ -1,15 +1,6 @@
-const Pool = require('pg').Pool;
-const { DB } = require('../config');
+const {pool} = require("../../db/querie");
 
-const pool = new Pool({
-  user: DB.PGUSER,
-  host: DB.PGHOST,
-  database: DB.PGDATABASE,
-  password: DB.PGPASSWORD,
-  port: DB.PGPORT
-});
-
-// Products
+// *** Products *** //
 
 const getAllProducts = (request, response) =>{
     pool.query("SELECT * FROM products ORDER BY name ASC", (error, results) => {
@@ -43,13 +34,20 @@ const addProduct = (request, response) =>{
     })
 };
 
-const deleteProduct = (request, response) =>{
+const deleteProductAndProductDetails = (request, response) =>{
     const id = parseInt(request.params.id);
+    pool.query('DELETE FROM product_details WHERE id_product = ($1)', 
+        [id], 
+        (error, results) => {
+            if (error) {
+                throw error
+            };
+    });
     pool.query('DELETE FROM products WHERE id = $1', [id], (error, results) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Product deleted with ID: ${id}`)
+        response.status(201).send(`Product ID: ${id} deleted with all his product details`)
       });
 };
 
@@ -64,27 +62,27 @@ const addStock = (request, response) =>{
       });
 };
 
-// *** product detail *** //
+// *** Product details *** //
 
-const getAllProductDetail = (request, response) =>{
-    pool.query('SELECT * FROM product_details ORDER BY id_product ASC', (error, results) => {
-        if(error){
-            throw error;
-        };
-        response.status(200).json(results.rows)
-    });
-};
-
-const addProductDetail = (request, response) =>{
+const addProductDetail = (request, response) => {
     const id = parseInt(request.params.id);
-    pool.query('INSERT INTO product_details (id_product) VALUES ($1) RETURNING *', 
+    const qty = parseInt(request.body.qty);
+    const resultsArray = [];
+    for (let i = 0; i < qty; i++) {
+        pool.query('INSERT INTO product_details (id_product) VALUES ($1) RETURNING *', 
         [id], 
         (error, results) => {
             if (error) {
-                throw error
+                throw error;
             };
-            response.status(201).send(`Product_details for Product ID:${id} \nAdded with ID: ${results.rows[0].id_item}`);
-    });
+            resultsArray.push(results.rows[0].id_item);
+            // Check if this is the last iteration
+            if (resultsArray.length === qty) {
+                // Send the response once the loop is complete
+                response.status(201).send(`Product_details for Product ID:${id} added with IDs: ${resultsArray.join(', ')}`);
+            };
+        }); 
+    };
 };
 
 const getProductDetailByProduct = (request, response) =>{
@@ -97,40 +95,12 @@ const getProductDetailByProduct = (request, response) =>{
     });
 };
 
-const deleteAllProductDetailByProduct = (request, response) =>{
-    const id = parseInt(request.params.id);
-    pool.query('DELETE FROM product_details WHERE id_product = ($1)', 
-        [id], 
-        (error, results) => {
-            if (error) {
-                throw error
-            };
-            response.status(201).send(`all product_details for Product ID:${id} deleted`);
-    });
-};
-
-const deleteProductDetail = (request, response) =>{
-    const id = parseInt(request.params.id);
-    pool.query('DELETE FROM product_details WHERE id_item = ($1)', 
-        [id], 
-        (error, results) => {
-            if (error) {
-                throw error
-            };
-            response.status(201).send(`product_details for Product ID:${id} deleted id_item: ${results.rows[0].id_item}`);
-    });
-};
-
-
 module.exports = {
-    getAllProducts,
-    getProductById,
-    addProduct,
-    deleteProduct,
-    addStock,
-    addProductDetail,
-    getProductDetailByProduct,
-    deleteAllProductDetailByProduct,
-    getAllProductDetail,
-    deleteProductDetail
+    getAllProducts, 
+    getProductById, 
+    addProduct, 
+    deleteProductAndProductDetails, 
+    addStock, 
+    addProductDetail, 
+    getProductDetailByProduct
 };

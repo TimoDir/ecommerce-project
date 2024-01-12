@@ -2,18 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const app = express();
-const {
-  getAllProducts, 
-  getProductById, 
-  addProduct, 
-  deleteProduct, 
-  addStock, 
-  addProductDetail, 
-  getProductDetailByProduct,
-  deleteAllProductDetailByProduct,
-  getAllProductDetail,
-  deleteProductDetail
-} =  require('./db/querie');
 const {PORT} = require('./config');
 const port = PORT;
 
@@ -25,23 +13,13 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
-    res.send('Express app is working!')
-});
+// Product_details route
+const ProductsDetailsRouter = require('./server/routes/ProductDetails/ProductDetailsRoute');
+app.use('/ProductDetails', ProductsDetailsRouter);
 
-// Products routes
-app.get('/Products', getAllProducts);
-app.get('/Products/:id', getProductById);
-app.post('/Products/addProduct', addProduct);
-app.delete('/Products/:id/deleteProduct', deleteProduct);
-app.put('/Products/:id/addStock', addStock);
-
-//Product_details route
-
-app.get('/ProductDetails/getAll', getAllProductDetail);
-app.post('/Products/:id/addProductDetail', addProductDetail);
-app.get('/Products/:id/getProductDetailByProduct', getProductDetailByProduct)
-app.delete('/Products/:id/deleteAllProductDetailByProduct', deleteAllProductDetailByProduct)
+// Products Router
+const ProductsRouter = require('./server/routes/Products/ProductsRoute');
+app.use('/Products', ProductsRouter);
 
 app.listen(port, ()=>{
     console.log(`App is listening on port: ${port}`)
