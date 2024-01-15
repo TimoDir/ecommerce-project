@@ -14,8 +14,9 @@
     </head>
     <body>
       <h1>Ecommerce Tools</h1>
-      <div class="container">
-          <div class="addProduct">
+        <div class="Product">
+            <h2>Product</h2>
+            <div class="addProduct">
               <h3>Add Product</h3>
               <form enctype="multipart/form-data" method="post" name="formAddPorduct" id="formAddPorduct">
                   <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
@@ -24,10 +25,10 @@
                   <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
                   <button type="submit" id="submit-product">Add</button>
               </form>
-          </div>
-          <div class="ProductDetailList">
-              <h3>Product Details:</h3>
-              <table>
+            </div>
+            <div class="ProductDetailList">
+                <h3>Product Details:</h3>
+                <table>
                   <thead>
                       <th><h4>ID_Product</h4></th>
                       <th><h4>Availability</h4></th>
@@ -37,11 +38,11 @@
                   <tbody id="ProductDetailList">
                       <!-- Your table data goes here -->
                   </tbody>
-              </table>
-          </div>
-          <div class="ProductList">
-              <h3>Product List:</h3>
-              <table>
+                </table>
+            </div>
+            <div class="ProductList">
+                <h3>Product List:</h3>
+                <table>
                   <thead>
                       <th><h4>ID</h4></th>
                       <th><h4>Category</h4></th>
@@ -54,10 +55,10 @@
                   <tbody id="ProductList">
                       <!-- Your table data goes here -->
                   </tbody>
-              </table>
-          </div>
-      </div>
+                </table>
+            </div>
+        </div>
   
-      <script src="../dist/bundle.js" async defer></script>
+      <script src="./dist/bundle.js" async defer></script>
   </body>
 </html>

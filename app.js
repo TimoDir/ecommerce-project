@@ -13,6 +13,10 @@ app.use(
   })
 );
 
+// Users Router
+const UsersRouter = require('./server/routes/User/UsersRoute');
+app.use('/Users', UsersRouter);
+
 // Product_details route
 const ProductsDetailsRouter = require('./server/routes/ProductDetails/ProductDetailsRoute');
 app.use('/ProductDetails', ProductsDetailsRouter);
