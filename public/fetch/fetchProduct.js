@@ -34,6 +34,8 @@ export const productList = async (products) =>{
         <td>${product.qty}</td>
         <td>
             <button id="addStock${product.id}">Add stock:</button><input id="InputStock${product.id}" type="number">
+        </td>
+        <td>
             <button id="deleteProduct${product.id}">delete</button>
         </td>`;
         productListContenaire.appendChild(productContainer);

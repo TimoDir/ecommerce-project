@@ -1,11 +1,21 @@
-import {
-    addProduct, 
-    productList, 
-    deleteProduct, 
-    addStock, 
-    productDetailsList
-}  from "./fetch/fetchProduct";
+import { usersList, addUser, addSold, deleteUser } from "./fetch/fetchUsers";
+import { addProduct, productList, deleteProduct, addStock, productDetailsList } from "./fetch/fetchProduct";
 
+// *** Users section *** //
+addUser();
+
+try {
+    fetch("http://localhost:3000/Users").then(response => response.json())
+    .then((users)=>{
+        usersList(users);
+        addSold(users);
+        deleteUser(users);
+    });
+} catch (error) {
+    console.log(error);
+};
+
+// *** Products section *** //
 addProduct();
 
 try {
@@ -19,6 +29,7 @@ try {
     console.log(error);
 };
 
+// *** Product_Details section *** //
 try {
     fetch("http://localhost:3000/ProductDetails").then(response => response.json())
     .then((productDetails)=>{

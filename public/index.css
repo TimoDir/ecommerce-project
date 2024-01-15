@@ -1,37 +1,54 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
 }
 
-.container {
+h1 {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  margin: 0;
+}
+
+.Product, .User{
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+.form_and_list {
   display: flex;
   flex-wrap: wrap;
+  margin: 20px;
 }
 
-.addProduct,
-.ProductDetailList {
+.form_and_list .addUser,
+.form_and_list .UsersList,
+.form_and_list .addProduct,
+.form_and_list .ProductDetailList {
   box-sizing: border-box;
-  width: calc(50% - 20px); /* Changed width to 50% */
+  width: calc(50% - 20px);
   margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
   overflow: auto;
-  max-height: 400px; /* Set your desired maximum height */
-}
-
-.addProduct {
-  background-color: #f2f2f2;
+  max-height: 400px;
 }
 
 .ProductList {
   box-sizing: border-box;
-  width: 100%;
+  width: calc(100% - 20px);
   margin: 10px;
   padding: 20px;
   border: 1px solid #ddd;
   overflow: auto;
-  max-height: 400px; /* Set your desired maximum height */
+  max-height: 400px;
+}
+
+.addUser,
+.addProduct {
+  background-color: #f2f2f2;
 }
 
 table {
@@ -40,7 +57,8 @@ table {
   margin-top: 10px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -49,13 +67,6 @@ th, td {
 th {
   background-color: #4CAF50;
   color: white;
-}
-
-h1 {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  margin: 0;
 }
 
 h3 {

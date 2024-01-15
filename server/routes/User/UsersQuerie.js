@@ -23,7 +23,6 @@ const getUserById = (request, response) =>{
 
 const addUser = (request, response) =>{
     const {full_name, email, password, sold} = request.body;
-
     pool.query('INSERT INTO users (full_name, email, password, sold) VALUES ($1, $2, $3, $4) RETURNING *', 
         [full_name, email, password, sold], 
         (error, results) => {
@@ -34,7 +33,7 @@ const addUser = (request, response) =>{
     })
 };
 
-const deleteUsers = (request, response) =>{
+const deleteUser = (request, response) =>{
     const id = parseInt(request.params.id);
     pool.query('DELETE FROM users WHERE id = $1', [id], (error, results) => {
         if (error) {
@@ -55,10 +54,22 @@ const addSold = (request, response) =>{
       });
 };
 
+const updateUser = (request, response) =>{
+    const {full_name, email, password, sold} = request.body;
+    pool.query(`UPDATE users (full_name, email, password, sold) VALUES ($1, $2, $3, $4) RETURNING *`, 
+        [full_name, email, password, sold], 
+        (error, results) => {
+            if (error) {
+                throw error
+            };
+            response.status(201).send(`User id ${results.rows[0].id } updated`);
+    })
+};
+
 module.exports = {
     getAllusers,
     getUserById,
     addUser,
-    deleteUsers,
+    deleteUser,
     addSold
 };

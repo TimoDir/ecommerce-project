@@ -3,7 +3,7 @@ const {
     getAllusers,
     getUserById,
     addUser,
-    deleteUsers,
+    deleteUser,
     addSold
 } =  require('./UsersQuerie');
 
@@ -11,7 +11,7 @@ const {
 UsersRouter.get('/', getAllusers);
 UsersRouter.get('/:id', getUserById);
 UsersRouter.post('/addUser', addUser);
-UsersRouter.delete('/:id/deleteUsers', deleteUsers);
+UsersRouter.delete('/:id/deleteUser', deleteUser);
 UsersRouter.put('/:id/addSold', addSold);
 
 module.exports = UsersRouter;

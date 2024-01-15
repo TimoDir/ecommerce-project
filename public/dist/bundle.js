@@ -7,6 +7,111 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addSold: () => (/* binding */ addSold),
+/* harmony export */   addUser: () => (/* binding */ addUser),
+/* harmony export */   deleteUser: () => (/* binding */ deleteUser),
+/* harmony export */   usersList: () => (/* binding */ usersList)
+/* harmony export */ });
+// **** Dom manipulation **** //
+
+// Users
+const usersList = async (users) =>{
+    const usersListContenaire = document.getElementById("UsersList");
+    users.forEach(user =>{
+        // creation of a list 
+        const userContainer = document.createElement('tr');
+        userContainer.setAttribute("id", `${user.id}${user.full_name}`);
+        userContainer.innerHTML =`
+        <td>${user.id}</td>
+        <td>${user.full_name}</td>
+        <td>${user.email}</td>
+        <td>${user.sold}</td>
+        <td>
+            <button id="addSoldToUser${user.id}">Add sold:</button><input id="InputSold${user.id}" type="number">
+        </td>
+        <td>
+            <button id="deleteUser${user.id}">delete</button>
+        </td>`;
+        usersListContenaire.appendChild(userContainer);
+    });
+};
+
+// **** Data base manipulation **** //
+
+
+const addUser = () =>{
+    const formAddUser = document.getElementById('formAddUser');
+    const submitButtonUser = document.getElementById('submit-user');
+  
+    submitButtonUser.addEventListener('click', async () => {
+      const dataFormAddUser = new FormData(formAddUser);
+      const data = {};
+      dataFormAddUser.forEach((value, key) => data[key] = value );
+  
+      try{
+        await fetch(`http://localhost:3000/Users/addUser`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data)
+        });
+        console.log(
+            `Sucess User added.\n
+            name: ${data.full_name}\n
+            email: ${data.email}\n
+            sold: ${data.sold}\n`
+        );
+      }catch{
+        console.log("Error");
+      };
+    });
+};
+
+const addSold = (users) =>{
+    users.forEach(user => {
+        const addSoldButton = document.getElementById(`addSoldToUser${user.id}`);
+        addSoldButton.addEventListener('click', async()=>{
+            const soldToAdd = document.getElementById(`InputSold${user.id}`).value;
+            // Update the stock value using the 'POST' method
+            try {
+                await fetch(`http://localhost:3000/Users/${user.id}/addSold`, {
+                    method: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ qty: soldToAdd })
+                });
+                console.log(`Sold added by ${soldToAdd}Kc for user id: ${user.id}.`);
+            } catch (error) {
+                console.log("Error to the add Stock route", error);
+            };
+        });
+    });
+};
+
+const deleteUser = (users) =>{
+    users.forEach(user => {
+        const deleteUserButton = document.getElementById(`deleteUser${user.id}`);
+        deleteUserButton.addEventListener('click', async()=>{
+            try{
+                await fetch(`http://localhost:3000/Users/${user.id}/deleteUser`, {
+                    method: 'DELETE',
+                });
+                console.log(`Delete user ${user.full_name} of ID: ${user.id}`);
+            }catch{
+                console.log(`Error to delete the user ${user.full_name} of ID: ${user.id}`);
+            };
+        });
+    });
+};
+
+/***/ }),
+/* 2 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   addProduct: () => (/* binding */ addProduct),
 /* harmony export */   addStock: () => (/* binding */ addStock),
 /* harmony export */   deleteProduct: () => (/* binding */ deleteProduct),
@@ -49,6 +154,8 @@ const productList = async (products) =>{
         <td>${product.qty}</td>
         <td>
             <button id="addStock${product.id}">Add stock:</button><input id="InputStock${product.id}" type="number">
+        </td>
+        <td>
             <button id="deleteProduct${product.id}">delete</button>
         </td>`;
         productListContenaire.appendChild(productContainer);
@@ -194,26 +301,44 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _fetch_fetchUsers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
-(0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__.addProduct)();
+
+// *** Users section *** //
+(0,_fetch_fetchUsers__WEBPACK_IMPORTED_MODULE_0__.addUser)();
 
 try {
-    fetch("http://localhost:3000/Products").then(response => response.json())
-    .then((products)=>{
-        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__.productList)(products);
-        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__.deleteProduct)(products);
-        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__.addStock)(products);
+    fetch("http://localhost:3000/Users").then(response => response.json())
+    .then((users)=>{
+        (0,_fetch_fetchUsers__WEBPACK_IMPORTED_MODULE_0__.usersList)(users);
+        (0,_fetch_fetchUsers__WEBPACK_IMPORTED_MODULE_0__.addSold)(users);
+        (0,_fetch_fetchUsers__WEBPACK_IMPORTED_MODULE_0__.deleteUser)(users);
     });
 } catch (error) {
     console.log(error);
 };
 
+// *** Products section *** //
+(0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__.addProduct)();
+
+try {
+    fetch("http://localhost:3000/Products").then(response => response.json())
+    .then((products)=>{
+        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__.productList)(products);
+        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__.deleteProduct)(products);
+        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__.addStock)(products);
+    });
+} catch (error) {
+    console.log(error);
+};
+
+// *** Product_Details section *** //
 try {
     fetch("http://localhost:3000/ProductDetails").then(response => response.json())
     .then((productDetails)=>{
-        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_0__.productDetailsList)(productDetails);
+        (0,_fetch_fetchProduct__WEBPACK_IMPORTED_MODULE_1__.productDetailsList)(productDetails);
     });
 } catch (error) {
     console.log(error);
