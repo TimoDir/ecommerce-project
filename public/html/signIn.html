@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ECommerceExercice</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- Users Section -->
+    <div class="User">
+        <h2>Sign in:</h2>
+        <div class="addUser">
+            <form enctype="multipart/form-data" method="post" name="formAddUser" id="formAddUser">
+                <label for="full_name">Full name: </label><input name="full_name" id="full_name" type="text" required> <br>
+                <label for="email">Email: </label><input name="email" id="email" type="email" required><br>
+                <label for="password">Password: </label><input name="password" id="password" type="password"><br>
+                <label for="sold">Sold: </label><input name="sold" id="sold" type="number"><br>
+                <button type="submit" id="submit-user">Add</button>
+            </form>
+        </div>
+    </div>
+    <script src="../js/dist/bundleSignIn.js" async defer></script>
+</body>
+</html>

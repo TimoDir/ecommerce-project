@@ -1,10 +1,20 @@
 const path = require('path');
 
-module.exports = {
-    mode:"none",
-    entry: './public/index.js',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve("./public", 'dist'),
+module.exports = [
+    {
+        mode:"none",
+        entry: './public/js/tools.js',
+        output: {
+            filename: 'bundleTools.js',
+            path: path.resolve("./public/js", 'dist'),
+        },
     },
-};
+    {
+        mode:"none",
+        entry: './public/js/signIn.js',
+        output: {
+            filename: 'bundleSignIn.js',
+            path: path.resolve("./public/js", 'dist'),
+        },
+    },
+];

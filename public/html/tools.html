@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ECommerceExercice</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/tools.css">
+</head>
+<body>
+    <h1>Ecommerce Tools</h1>
+     <!-- Users Section -->
+    <div class="User">
+        <h2>Users</h2>
+        <div class="UsersList">
+            <h3>Users List:</h3>
+            <table>
+                <thead>
+                    <th><h4>ID</h4></th>
+                    <th><h4>Full name</h4></th>
+                    <th><h4>Email</h4></th>
+                    <th><h4>Sold</h4></th>
+                    <th><h4>Add sold</h4></th>
+                    <th><h4>Delete</h4></th>
+                </thead>
+                <tbody id="UsersList">
+                    <!-- table data goes here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Products Section -->
+    <div class="Product">
+        <h2>Product</h2>
+        <div class="form_and_list">
+            <div class="addProduct">
+                <h3>Add Product</h3>
+                <form enctype="multipart/form-data" method="post" name="formAddPorduct" id="formAddPorduct">
+                    <label for="category">Category: </label><input name="category" id="category" type="text" required> <br>
+                    <label for="name">Name: </label><input name="name" id="name" type="text" required><br>
+                    <label for="price">Price: </label><input name="price" id="price" type="number" value="0"><br>
+                    <label for="color">Color: </label><input name="color" id="color" type="color" value="#000000"><br>
+                    <button type="submit" id="submit-product">Add</button>
+                </form>
+            </div>
+            <div class="ProductDetailList">
+                <h3>Product Details:</h3>
+                <table>
+                    <thead>
+                        <th><h4>ID_Product</h4></th>
+                        <th><h4>Availability</h4></th>
+                        <th><h4>ID_Item</h4></th>
+                        <th><h4>Delete</h4></th>
+                    </thead>
+                    <tbody id="ProductDetailList">
+                        <!-- table data goes here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="ProductList">
+            <h3>Product List:</h3>
+            <table>
+                <thead>
+                    <th><h4>ID</h4></th>
+                    <th><h4>Category</h4></th>
+                    <th><h4>Name</h4></th>
+                    <th><h4>Price</h4></th>
+                    <th><h4>Color</h4></th>
+                    <th><h4>Quantity</h4></th>
+                    <th><h4>Add Stock</h4></th>
+                    <th><h4>Delete</h4></th>
+                </thead>
+                <tbody id="ProductList">
+                    <!-- table data goes here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/dist/bundleTools.js" async defer></script>
+</body>
+</html>
