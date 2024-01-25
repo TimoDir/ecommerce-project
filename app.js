@@ -13,19 +13,27 @@ app.use((req, res, next)=>{
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true,
-  })
-);
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "/public")));
 
-app.get('/tools', (req, res) =>{
-  res.sendFile(path.join(__dirname, "public", "html", "tools.html"));
+app.get('/home', (req, res) =>{
+  res.sendFile(path.join(__dirname, "public", "html", "home.html"));
+});
+
+app.get('/logIn', (req, res) =>{
+  res.sendFile(path.join(__dirname, "public", "html", "logIn.html"));
+});
+
+app.get('/shop', (req, res) =>{
+  res.sendFile(path.join(__dirname, "public", "html", "shop.html"));
 });
 
 app.get('/signIn', (req, res) =>{
   res.sendFile(path.join(__dirname, "public", "html", "signIn.html"));
+});
+
+app.get('/tools', (req, res) =>{
+  res.sendFile(path.join(__dirname, "public", "html", "tools.html"));
 });
 
 // Users Router
