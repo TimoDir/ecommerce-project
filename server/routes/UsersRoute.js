@@ -3,17 +3,25 @@ const {
     getAllusers,
     getUserById,
     addUser,
-    userLogIn,
     deleteUser,
-    addSold
+    addSold,
+    updateUser,
+    userLogIn,
+    userRefresh,
+    setUserRole,
+    userLogOut
 } =  require('../controllers/UsersController');
+const {verifyJWT} = require('../../middlewares/verifyJWT');
 
 // users manipulation
-UsersRouter.get('/', getAllusers);
-UsersRouter.get('/:id', getUserById);
+
 UsersRouter.post('/addUser', addUser);
 UsersRouter.post('/logIn', userLogIn);
-UsersRouter.delete('/:id/deleteUser', deleteUser);
-UsersRouter.put('/:id/addSold', addSold);
+UsersRouter.put('/logOut', userLogOut);
+UsersRouter.get('/refresh', userRefresh);
+UsersRouter.delete('/:id/deleteUser', verifyJWT, deleteUser);
+UsersRouter.put('/:id/addSold', verifyJWT, addSold);
+UsersRouter.get('/', verifyJWT, getAllusers);
+UsersRouter.get('/:id', verifyJWT, getUserById);
 
 module.exports = UsersRouter;

@@ -9,6 +9,16 @@ const pool = new Pool({
   port: DB.PGPORT
 });
 
+const getUser = () =>{ 
+  const allUser = pool.query("SELECT * FROM users");
+  return allUser;
+};
+const getUserRole = async(userId) =>{
+  pool.query("SELECT * FROM users");
+}
+  
+
 module.exports = {
-    pool
+    pool,
+    getUser
 };
