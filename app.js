@@ -20,10 +20,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.get('/home', (req, res) =>{
-  res.sendFile(path.join(__dirname, "public", "html", "home.html"));
+  res.sendFile(path.join(__dirname, "public", "html", "index.html"));
 });
 
-app.get('/logIn', (req, res) =>{
+app.get('/login', (req, res) =>{
   res.sendFile(path.join(__dirname, "public", "html", "logIn.html"));
 });
 
@@ -31,11 +31,11 @@ app.get('/shop', verifyJWT, (req, res) =>{
   res.sendFile(path.join(__dirname, "public", "html", "shop.html"));
 });
 
-app.get('/signIn', (req, res) =>{
-  res.sendFile(path.join(__dirname, "public", "html", "signIn.html"));
+app.get('/signup', (req, res) =>{
+  res.sendFile(path.join(__dirname, "public", "html", "signup.html"));
 });
 
-app.get('/tools', verifyJWT, (req, res) =>{
+app.get('/tools', /*verifyJWT,*/ (req, res) =>{
   res.sendFile(path.join(__dirname, "public", "html", "tools.html"));
 });
 

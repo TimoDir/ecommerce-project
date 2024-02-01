@@ -13,12 +13,16 @@ const getUser = () =>{
   const allUser = pool.query("SELECT * FROM users");
   return allUser;
 };
-const getUserRole = async(userId) =>{
-  pool.query("SELECT * FROM users");
-}
+const getUserRoles = async(userId) =>{
+  const userRoles = await pool.query("SELECT role FROM roles_user WHERE id_user = $1", [userId]);
+  const userRolesArray = [];
+  userRoles.rows.forEach(row => userRolesArray.push(row.role));
+  return userRolesArray;
+};
   
 
 module.exports = {
     pool,
-    getUser
+    getUser,
+    getUserRoles
 };

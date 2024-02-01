@@ -6,22 +6,36 @@ const {
     deleteUser,
     addSold,
     updateUser,
+} =  require('../controllers/UsersController');
+const {
     userLogIn,
     userRefresh,
-    setUserRole,
-    userLogOut
-} =  require('../controllers/UsersController');
+    userLogOut,
+    addRole,
+    setRole,
+    removeRole
+} = require('../controllers/logsRolesController');
+const {redirectHome} = require('../controllers/PagesControllers');
 const {verifyJWT} = require('../../middlewares/verifyJWT');
+const {verifyRoles} = require('../../middlewares/verifyRoles');
 
-// users manipulation
-
-UsersRouter.post('/addUser', addUser);
-UsersRouter.post('/logIn', userLogIn);
+// logs routes
+UsersRouter.post('/logIn', userLogIn, redirectHome);
 UsersRouter.put('/logOut', userLogOut);
 UsersRouter.get('/refresh', userRefresh);
-UsersRouter.delete('/:id/deleteUser', verifyJWT, deleteUser);
-UsersRouter.put('/:id/addSold', verifyJWT, addSold);
-UsersRouter.get('/', verifyJWT, getAllusers);
-UsersRouter.get('/:id', verifyJWT, getUserById);
+// Users routes
+const adminStaff = ["Admin", "Staff"];
+const admin = ["Admin"];
+UsersRouter.route('')
+    .get(verifyJWT, verifyRoles(adminStaff), getAllusers)
+    .post(addUser, addRole);
+UsersRouter.route('/:id')
+    .get(verifyJWT, verifyRoles(adminStaff), getUserById)
+    .put(verifyJWT, verifyRoles(adminStaff), addSold)
+    .delete(verifyJWT, verifyRoles(admin),deleteUser);
+// Roles routes
+UsersRouter.route('/:id/role')
+    .post(verifyJWT, verifyRoles(admin), setRole)
+    .delete(verifyJWT, verifyRoles(admin), removeRole);
 
 module.exports = UsersRouter;

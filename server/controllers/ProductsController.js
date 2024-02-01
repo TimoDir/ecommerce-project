@@ -36,13 +36,7 @@ const addProduct = (request, response) =>{
 
 const deleteProductAndProductDetails = (request, response) =>{
     const id = parseInt(request.params.id);
-    pool.query('DELETE FROM product_details WHERE id_product = ($1)', 
-        [id], 
-        (error, results) => {
-            if (error) {
-                throw error
-            };
-    });
+    pool.query('DELETE FROM product_details WHERE id_product = ($1)', [id]);
     pool.query('DELETE FROM products WHERE id = $1', [id], (error, results) => {
         if (error) {
           throw error
