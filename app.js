@@ -51,6 +51,10 @@ app.use('/ProductDetails', ProductsDetailsRouter);
 const ProductsRouter = require('./server/routes/ProductsRoute');
 app.use('/Products', ProductsRouter);
 
+// Cart Router
+const CartRouter = require('./server/routes/CartRoute');
+app.use('/Cart', CartRouter);
+
 app.listen(PORT, ()=>{
     console.log(`App is listening on port: ${PORT}`)
 });

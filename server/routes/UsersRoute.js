@@ -15,12 +15,11 @@ const {
     setRole,
     removeRole
 } = require('../controllers/logsRolesController');
-const {redirectHome} = require('../controllers/PagesControllers');
 const {verifyJWT} = require('../../middlewares/verifyJWT');
 const {verifyRoles} = require('../../middlewares/verifyRoles');
 
 // logs routes
-UsersRouter.post('/logIn', userLogIn, redirectHome);
+UsersRouter.post('/logIn', userLogIn);
 UsersRouter.put('/logOut', userLogOut);
 UsersRouter.get('/refresh', userRefresh);
 // Users routes
